@@ -1,0 +1,559 @@
+.game-screen {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background: #000;
+}
+
+.hud-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.hud-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 16px 20px;
+  pointer-events: none;
+}
+
+.hud-left {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.hud-stat {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+  padding: 10px 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  min-width: 160px;
+}
+
+.hud-stat-icon {
+  font-size: 20px;
+}
+
+.hud-stat-value {
+  font-family: 'Outfit', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: white;
+}
+
+.hud-stat-label {
+  font-size: 10px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.hud-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.timer-display {
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  padding: 12px 28px;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+}
+
+.timer-value {
+  font-family: 'Outfit', monospace;
+  font-size: 36px;
+  font-weight: 800;
+  color: white;
+}
+
+.timer-value.warning {
+  color: var(--accent-orange);
+  animation: pulse 0.5s ease-in-out infinite;
+}
+
+.timer-value.danger {
+  color: var(--accent-red);
+  animation: pulse 0.3s ease-in-out infinite;
+}
+
+.timer-label {
+  font-size: 10px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.solo-badge {
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  padding: 12px 28px;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  text-align: center;
+}
+
+.solo-badge-text {
+  font-family: 'Outfit', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  background: var(--gradient-main);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.solo-badge-sub {
+  font-size: 10px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-top: 2px;
+}
+
+.bot-position-badge {
+  border-color: rgba(255, 165, 0, 0.4);
+}
+
+.bot-position-value {
+  font-family: 'Outfit', sans-serif;
+  font-size: 36px;
+  font-weight: 900;
+  color: white;
+  text-shadow: 0 0 20px rgba(255, 165, 0, 0.4);
+  margin-top: 2px;
+}
+
+.hud-right {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 180px;
+  margin-top: 52px;
+}
+
+.leaderboard-title {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+.leaderboard-entry {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 13px;
+  transition: all 0.3s ease;
+}
+
+.leaderboard-entry.is-me {
+  border-color: rgba(0, 212, 255, 0.4);
+  background: rgba(0, 212, 255, 0.1);
+}
+
+.leaderboard-entry.is-leader {
+  border-color: rgba(255, 211, 42, 0.4);
+  background: rgba(255, 211, 42, 0.08);
+}
+
+.lb-rank {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  width: 20px;
+  text-align: center;
+}
+
+.lb-color {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.lb-name {
+  flex: 1;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lb-distance {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  color: var(--text-secondary);
+  font-size: 12px;
+}
+
+.hud-bottom {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
+}
+
+.controls-hint {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  color: var(--text-muted);
+  display: flex;
+  gap: 12px;
+}
+
+.key-hint {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.key {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: 'Outfit', monospace;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* Fuel Gauge — now flows inside hud-left column */
+.fuel-gauge {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+  padding: 10px 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.fuel-gauge.fuel-low {
+  border-color: rgba(255, 165, 0, 0.5);
+  animation: pulse-border 1s infinite alternate;
+}
+
+.fuel-gauge.fuel-critical {
+  border-color: rgba(255, 71, 87, 0.8);
+  background: rgba(255, 71, 87, 0.1);
+  animation: pulse-border-critical 0.5s infinite alternate;
+}
+
+.fuel-label {
+  font-size: 10px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+.fuel-bar-container {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.fuel-bar-fill {
+  height: 100%;
+  background: #2ed573;
+  border-radius: 4px;
+  transition: width 0.1s linear, background-color 0.3s ease;
+}
+
+.fuel-gauge.fuel-low .fuel-bar-fill {
+  background: #ffa500;
+}
+
+.fuel-gauge.fuel-critical .fuel-bar-fill {
+  background: #ff4757;
+}
+
+.fuel-percentage {
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: white;
+  text-align: right;
+  margin-top: -4px;
+}
+
+@keyframes pulse-border {
+  from { box-shadow: 0 0 0 rgba(255, 165, 0, 0); }
+  to { box-shadow: 0 0 10px rgba(255, 165, 0, 0.3); }
+}
+
+@keyframes pulse-border-critical {
+  from { box-shadow: 0 0 0 rgba(255, 71, 87, 0); }
+  to { box-shadow: 0 0 15px rgba(255, 71, 87, 0.5); }
+}
+
+/* Pause and Exit Modals Overlay */
+.hud-overlay.blurred {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+}
+
+.top-right-controls {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  display: flex;
+  gap: 12px;
+  z-index: 100;
+  pointer-events: auto;
+}
+
+.control-btn {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.control-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+.exit-btn:hover {
+  border-color: rgba(255, 71, 87, 0.6);
+  box-shadow: 0 0 15px rgba(255, 71, 87, 0.3);
+}
+
+.modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  pointer-events: auto;
+}
+
+.game-modal {
+  text-align: center;
+  max-width: 400px;
+}
+
+.game-modal h2 {
+  font-size: 32px;
+  margin-bottom: 12px;
+  background: var(--gradient-main);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.game-modal p {
+  color: var(--text-secondary);
+  font-size: 16px;
+  margin-bottom: 32px;
+  line-height: 1.5;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.modal-actions.vertical {
+  flex-direction: column;
+}
+
+.danger-btn {
+  background: var(--accent-red);
+}
+
+.danger-btn:hover {
+  box-shadow: 0 8px 25px rgba(255, 71, 87, 0.35);
+}
+
+/* ═══════════ NITRO GAUGE — flows inside hud-left column ═══════════ */
+
+.nitro-gauge {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+  padding: 10px 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.nitro-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nitro-icon {
+  font-size: 16px;
+}
+
+.nitro-label {
+  font-size: 10px;
+  color: #00d4ff;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 700;
+  flex: 1;
+}
+
+.nitro-uses {
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: white;
+}
+
+.nitro-bar-container {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.nitro-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.15s linear;
+}
+
+.nitro-bar-fill.ready-fill {
+  background: linear-gradient(90deg, #00d4ff, #0088ff);
+  box-shadow: 0 0 6px rgba(0, 212, 255, 0.4);
+}
+
+.nitro-bar-fill.active-fill {
+  background: linear-gradient(90deg, #00ffff, #00d4ff, #4488ff);
+  box-shadow: 0 0 12px rgba(0, 255, 255, 0.6);
+  animation: nitro-pulse-bar 0.3s ease-in-out infinite alternate;
+}
+
+.nitro-bar-fill.cooldown-fill {
+  background: linear-gradient(90deg, #555, #888);
+  box-shadow: none;
+}
+
+/* Active State — Glowing */
+.nitro-gauge.nitro-active {
+  border-color: rgba(0, 255, 255, 0.6);
+  background: rgba(0, 255, 255, 0.08);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.2), inset 0 0 15px rgba(0, 255, 255, 0.05);
+  animation: nitro-glow 0.4s ease-in-out infinite alternate;
+}
+
+.nitro-gauge.nitro-active .nitro-label {
+  color: #00ffff;
+  text-shadow: 0 0 8px rgba(0, 255, 255, 0.5);
+}
+
+/* Cooldown State */
+.nitro-gauge.nitro-cooldown {
+  border-color: rgba(255, 165, 0, 0.3);
+  background: rgba(255, 165, 0, 0.05);
+}
+
+.nitro-gauge.nitro-cooldown .nitro-label {
+  color: #ffa500;
+}
+
+.nitro-gauge.nitro-cooldown .nitro-uses {
+  color: #ffa500;
+}
+
+/* Gap State */
+.nitro-gap-text {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+  margin-top: 2px;
+}
+
+/* SPACE key hint in controls bar */
+.nitro-key-hint {
+  color: #00d4ff;
+}
+
+.nitro-key {
+  background: rgba(0, 212, 255, 0.15) !important;
+  color: #00d4ff;
+  border: 1px solid rgba(0, 212, 255, 0.3);
+}
+
+/* Animations */
+@keyframes nitro-glow {
+  from {
+    box-shadow: 0 0 12px rgba(0, 255, 255, 0.15), inset 0 0 10px rgba(0, 255, 255, 0.03);
+  }
+  to {
+    box-shadow: 0 0 25px rgba(0, 255, 255, 0.3), inset 0 0 20px rgba(0, 255, 255, 0.06);
+  }
+}
+
+@keyframes nitro-pulse-bar {
+  from {
+    box-shadow: 0 0 6px rgba(0, 255, 255, 0.4);
+  }
+  to {
+    box-shadow: 0 0 14px rgba(0, 255, 255, 0.8);
+  }
+}
